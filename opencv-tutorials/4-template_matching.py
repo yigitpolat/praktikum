@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+
 img = cv2.imread('../images/img-white-background-4.JPG', 0)
 martini = cv2.imread('../images/martini.JPG', 0)
 bitterol = cv2.imread('../images/bitterol.JPG', 0)
