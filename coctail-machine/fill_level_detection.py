@@ -26,8 +26,8 @@ bottle_open = cv2.morphologyEx(bottle_threshold, cv2.MORPH_OPEN, kernel)
 contours = cv2.findContours(bottle_open.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 contours = imutils.grab_contours(contours)
 bottle_original_image = bottle_image.copy()
-# cv2.drawContours(bottle_original_image, contours, -1, (255, 0, 0), 2)
-# cv2.imshow("All Contours", bottle_original_image)
+cv2.drawContours(bottle_original_image, contours, -1, (255, 0, 0), 2)
+cv2.imshow("All Contours", bottle_original_image)
 
 # sort contours by area
 areas = [cv2.contourArea(contour) for contour in contours]
