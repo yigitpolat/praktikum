@@ -16,7 +16,7 @@ import random
 
 ##########
 
-original_image = cv2.imread('../images/test_2.JPG')
+original_image = cv2.imread('../../images/test_2.JPG')
 
 lower_blue = np.array([190, 190, 190])
 upper_blue = np.array([225, 225, 225])

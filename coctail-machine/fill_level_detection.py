@@ -13,9 +13,9 @@ bottle_gray = cv2.split(bottle_image)[0]
 bottle_gray = cv2.GaussianBlur(bottle_gray, (7, 7), 0)
 
 # manual threshold
-# plt.hist(bottle_gray.ravel(), 256,[0, 256]); plt.show()
+plt.hist(bottle_gray.ravel(), 256,[0, 256]); plt.show()
 (T, bottle_threshold) = cv2.threshold(bottle_gray, 27.5, 255, cv2.THRESH_BINARY_INV)
-# cv2.imshow("Bottle Gray Threshold 27.5", bottle_threshold)
+cv2.imshow("Bottle Gray Threshold 27.5", bottle_threshold)
 
 # apply opening operation to remove the white edges of the water
 kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
