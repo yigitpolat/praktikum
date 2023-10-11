@@ -1,7 +1,7 @@
 import cv2
 from liquid_level import *
 
-img = cv2.imread('../../images/template-matching-2.JPG')
+img = cv2.imread('../../images/template-matching-1.JPG')
 img_gray = cv2.split(img)[0]
 
 martini = cv2.imread('../../images/template-matching-martini.JPG', 0)
@@ -40,4 +40,5 @@ cv2.imwrite('../../images/template-matching-bitterol-crop.png',bitterol_bottle)
 tanquery_bottle = img[tanquery_location[1]:tanquery_location[1]+tanquery_height, tanquery_location[0]:tanquery_location[0] + tanquery_width]
 cv2.imwrite('../../images/template-matching-tanquery-crop.png',tanquery_bottle)
 
-is_bottle_full("../../images/template-matching-martini-crop.png")
+is_bottle_full("../../images/template-matching-bitterol-crop.png")
+is_bottle_full("../../images/template-matching-tanquery-crop.png")

@@ -20,11 +20,11 @@ original_image = cv2.imread('../../images/test_2.JPG')
 
 lower_blue = np.array([190, 190, 190])
 upper_blue = np.array([225, 225, 225])
-
-# preparing the mask to overlay
+#
+# # preparing the mask to overlay
 mask = cv2.inRange(original_image, lower_blue, upper_blue)
 result = cv2.bitwise_and(original_image, original_image, mask=mask)
-# cv2.imshow('blur_image', result)
+cv2.imshow('blur_image', result)
 
 # lower_black = np.array([0,0,0], dtype = "uint16")
 # upper_black = np.array([170,170,170], dtype = "uint16")
@@ -38,21 +38,21 @@ result = cv2.bitwise_and(original_image, original_image, mask=mask)
 # cv2.imshow('blur_image', original_image)
 
 
-
+#
 # image_in_gray = cv2.split(original_image)[0]
-
-# blur_image = cv2.GaussianBlur(image_in_gray, (21, 21), 0)
-# cv2.imshow('blur_image', blur_image)
-
-
-# plt.hist(blur_image.ravel(), 256,[0, 256])
-# plt.show()
-# (T, image_modified) = cv2.threshold(blur_image, 100, 255, cv2.THRESH_BINARY_INV)
-# cv2.imshow('image greyscale', image_modified)
-# # #
-edges = cv2.Canny(result, 150, 300)
-cv2.imshow('image_in_gray', edges)
-# # #
+#
+# # blur_image = cv2.GaussianBlur(image_in_gray, (21, 21), 0)
+# # cv2.imshow('blur_image', blur_image)
+#
+#
+# # plt.hist(blur_image.ravel(), 256,[0, 256])
+# # plt.show()
+# # (T, image_modified) = cv2.threshold(blur_image, 100, 255, cv2.THRESH_BINARY_INV)
+# # cv2.imshow('image greyscale', image_modified)
+# # # #
+# edges = cv2.Canny(image_in_gray, 150, 300)
+# cv2.imshow('image_in_gray', edges)
+# # # #
 # contours, hierarchy = cv2.findContours(black_mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 # # # #
 # final_image = original_image.copy()
