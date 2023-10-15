@@ -40,5 +40,6 @@ cv2.imwrite('../../images/template-matching-bitterol-crop.png',bitterol_bottle)
 tanquery_bottle = img[tanquery_location[1]:tanquery_location[1]+tanquery_height, tanquery_location[0]:tanquery_location[0] + tanquery_width]
 cv2.imwrite('../../images/template-matching-tanquery-crop.png',tanquery_bottle)
 
+# is_bottle_full("../../images/template-matching-martini-crop.png")
 is_bottle_full("../../images/template-matching-bitterol-crop.png")
 is_bottle_full("../../images/template-matching-tanquery-crop.png")

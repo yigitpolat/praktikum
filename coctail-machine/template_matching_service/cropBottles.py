@@ -46,4 +46,7 @@ def cropBottles(img):
     retval, buffer = cv2.imencode('.jpg', tanquery_bottle)
     tanquery_base64 = base64.b64encode(buffer)
 
-    return {"martini_base64":martini_base64,"bitterol_base64":bitterol_base64,"tanquery_base64":tanquery_base64}
+    return {"martini_base64": martini_base64,
+            "bitterol_base64": bitterol_base64,
+            "tanquery_base64": tanquery_base64
+            }
