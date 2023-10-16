@@ -90,9 +90,10 @@ against the bottles, enhancing the visibility of their shapes and features, ther
 recognition.
 
 Examples:
-- [Image-xxx]
-- [Image-xxx]
-- [Image-xxx]
+- [Image-16](./images/white-background-1.JPG)
+- [Image-17](./images/white-background-2.JPG)
+- [Image-18](./images/white-background-3.JPG)
+- [Image-19](./images/white-background-4.JPG)
 
 ## Bottle Extraction from Images
 
