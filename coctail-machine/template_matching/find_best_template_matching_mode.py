@@ -5,11 +5,11 @@ img_gray = cv2.split(img)[0]
 
 martini = cv2.imread('../../images/template-matching-martini.JPG', 0)
 bitterol = cv2.imread('../../images/template-matching-bitterol.JPG', 0)
-tanquery = cv2.imread('../../images/template-matching-tanquery.JPG', 0)
+tanqueray = cv2.imread('../../images/template-matching-tanqueray.JPG', 0)
 
 martini_height, martini_width = martini.shape
 bitterol_height, bitterol_width = bitterol.shape
-tanquery_height, tanquery_width = tanquery.shape
+tanqueray_height, tanqueray_width = tanqueray.shape
 
 # tries every method one-by-one
 methods = [cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR,
@@ -26,26 +26,26 @@ for method in methods:
     bitterol_result = cv2.matchTemplate(img_gray_copy, bitterol, method)
     _, _, bitterol_min_loc, bitterol_max_loc = cv2.minMaxLoc(bitterol_result)
 
-    tanquery_result = cv2.matchTemplate(img_gray_copy, tanquery, method)
-    _, _, tanquery_min_loc, tanquery_max_loc = cv2.minMaxLoc(tanquery_result)
+    tanqueray_result = cv2.matchTemplate(img_gray_copy, tanqueray, method)
+    _, _, tanqueray_min_loc, tanqueray_max_loc = cv2.minMaxLoc(tanqueray_result)
 
     # these method takes the min_loc
     if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
         martini_location = martini_min_loc
         bitterol_location = bitterol_min_loc
-        tanquery_location = tanquery_min_loc
+        tanqueray_location = tanqueray_min_loc
     else:
         martini_location = martini_max_loc
         bitterol_location = bitterol_max_loc
-        tanquery_location = tanquery_max_loc
+        tanqueray_location = tanqueray_max_loc
 
     martini_bottom_right = (martini_location[0]+martini_width, martini_location[1]+martini_height)
     bitterol_bottom_right = (bitterol_location[0]+bitterol_width, bitterol_location[1]+bitterol_height)
-    tanquery_bottom_right = (tanquery_location[0]+tanquery_width, tanquery_location[1]+tanquery_height)
+    tanqueray_bottom_right = (tanqueray_location[0]+tanqueray_width, tanqueray_location[1]+tanqueray_height)
 
     cv2.rectangle(img_copy, martini_location, martini_bottom_right, 255,5)
     cv2.rectangle(img_copy, bitterol_location, bitterol_bottom_right, 255,5)
-    cv2.rectangle(img_copy, tanquery_location, tanquery_bottom_right, 255,5)
+    cv2.rectangle(img_copy, tanqueray_location, tanqueray_bottom_right, 255,5)
 
     cv2.imshow('template-matching', img_copy)
     cv2.waitKey(0)

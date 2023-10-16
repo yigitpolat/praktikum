@@ -152,9 +152,11 @@ git clone <git-url>
 cd <cloned-directory>
 python3 -m venv venv
 source venv/bin/activate
-pytno3 -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
+python3 coctail-machine/template_matching_service/main.py
 
-
+curl -X 'POST' 'https://lehre.bpm.in.tum.de/ports/8011/bottles/cropBottles' -H 'Content-Type: multipart/form-data' --form 'imagebase64=text/plain;<base64_data>'
+curl -X 'POST' 'https://lehre.bpm.in.tum.de/ports/8011/bottles/fillLevel' -H 'Content-Type: multipart/form-data' --form 'imagebase64=text/plain;<base64_data>'
 ```
 
 ## Authors
