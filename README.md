@@ -147,17 +147,21 @@ becomes possible to extract relevant features like the bottle's outline and wate
 
 ## Run the code
 
+### Deploy the code
+
 ```sh
-git clone <git-url>
-cd <cloned-directory>
+git clone https://github.com/yigitpolat/praktikum.git
+cd praktikum
 python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install -r requirements.txt
 python3 coctail-machine/template_matching_service/main.py
-
-curl -X 'POST' 'https://lehre.bpm.in.tum.de/ports/8011/bottles/cropBottles' -H 'Content-Type: multipart/form-data' --form 'imagebase64=text/plain;<base64_data>'
-curl -X 'POST' 'https://lehre.bpm.in.tum.de/ports/8011/bottles/fillLevel' -H 'Content-Type: multipart/form-data' --form 'imagebase64=text/plain;<base64_data>'
 ```
+
+### Make API requests
+
+- Option 1: [Use Cloud Process Execution Engine (CPEE)](https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/)
+- Option 2: Use Postman by importing the [data](./postman-collection/postman_collection.json)
 
 ## Authors
 
