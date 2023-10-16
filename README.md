@@ -33,6 +33,7 @@ limitations, which led us to explore alternative approaches.
   This constraint significantly hindered the effectiveness of the bottle detection system.
 
 Examples:
+
 - [Image-1](./images/robot-camera-1.png)
 - [Image-2](./images/robot-camera-2.png)
 - [Image-3](./images/robot-camera-3.png)
@@ -78,6 +79,7 @@ pronounced when relying on computer vision algorithms that rely on identifying s
 image.
 
 Examples:
+
 - [Image-12](./images/busy-background-1.JPG)
 - [Image-13](./images/busy-background-2.JPG)
 - [Image-14](./images/busy-background-3.JPG)
@@ -90,6 +92,7 @@ against the bottles, enhancing the visibility of their shapes and features, ther
 recognition.
 
 Examples:
+
 - [Image-16](./images/white-background-1.JPG)
 - [Image-17](./images/white-background-2.JPG)
 - [Image-18](./images/white-background-3.JPG)
@@ -99,23 +102,30 @@ Examples:
 
 ### Testing Failures: Methodologies Discarded
 
-#### Template Matching
+#### Contours
 
-OpenCV template matching is primarily relies on pixel-level comparisons without considering higher-level features. As a
-result of our experimentation, template matching mode TM_CCOEFF_NORMED gave the highest performance within 6 modes;
-TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, M_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED.
+Contours provide an effective way to separate objects from the background, especially when the
+background is uniform, such as a white background. However, first we needed to extract the white plane from the whole
+image. So that, we planed to apply two level contour finding to first finding contours of the white background image was
+the draw the boundaries of the background of the white surface; second outlines of objects these boundaries to precisely
+define the extent and shape of the objects, which is crucial for tasks like object detection and segmentation. By
+tracing the contours of objects, you can distinguish the shapes of
+the objects from the background, making subsequent analysis and object recognition easier.
 
-we saw that template matching was working incorrectly due to the following
-items.
+Steps described below
 
-- Bottle Shapes: The large variation in bottle shapes, sizes, and orientations can make it challenging to find a single
-  template that accurately represents all instances of bottles. Eventhough if we try to get a template for each bottle,
-  which is not feasible for the efficiency of the cocktail machine, it does not seem reasonable to solve the problems in
-  the next item.
-- Environmental Factors: Template matching relies on finding exact matches, and even slight variations in the appearance
-  of bottles, such as different lights or reflection can lead to inaccurate results.
-  Therefore, alternative approaches such as deep learning-based object detection algorithms, which can learn and
-  generalize from large datasets, might be more suitable for reliable bottle detection in diverse real-world scenarios.
+- The input image is converted into a black and white format, reducing it to a single channel. This simplifies the
+  task of identifying object boundaries.
+- GaussianBlur is applied to the image to reduce noise and smoothen it. This step helps to make the edges more
+  pronounced and continuous.
+- Thresholding operation is used to create a binary image, where pixel values below a specified threshold are set to
+  black, while those above it are set to white. This binary image serves as the basis for contour detection.
+- Apply the Canny edge detection algorithm to the thresholded image. This step will highlight the edges of objects
+  within the binary image, making them stand out more.
+- The findContours function in OpenCV is then utilized to locate and extract the contours of the bottles within the
+  processed image. This algorithm allows for the precise identification and extraction of bottle shapes within the
+  image, facilitating subsequent analysis and object recognition tasks in computer vision applications.
+
 
 ### Pre-trained AI models
 
@@ -127,19 +137,22 @@ items.
 
 - https://www.freedomvc.com/index.php/2022/01/17/basic-background-remover-with-opencv/
 
-### Edge Detection Algorithms
+### Methodology - Template Matching
 
-#### Canny
+OpenCV template matching is primarily relies on pixel-level comparisons without considering higher-level features. As a
+result of our experimentation, template matching mode TM_CCOEFF_NORMED gave the highest performance within 6 modes;
+TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, M_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED.
 
-- https://docs.opencv.org/3.4/da/d22/tutorial_py_canny.html
+we saw that template matching was working incorrectly due to the following items.
 
-#### Contours
-
-- https://learnopencv.com/edge-detection-using-opencv
-- https://docs.opencv.org/3.4/d3/d05/tutorial_py_table_of_contents_contours.html
-- https://learnopencv.com/contour-detection-using-opencv-python-c/#contour-applications
-
-### Methodology
+- Bottle Shapes: The large variation in bottle shapes, sizes, and orientations can make it challenging to find a single
+  template that accurately represents all instances of bottles. Eventhough if we try to get a template for each bottle,
+  which is not feasible for the efficiency of the cocktail machine, it does not seem reasonable to solve the problems in
+  the next item.
+- Environmental Factors: Template matching relies on finding exact matches, and even slight variations in the appearance
+  of bottles, such as different lights or reflection can lead to inaccurate results.
+  Therefore, alternative approaches such as deep learning-based object detection algorithms, which can learn and
+  generalize from large datasets, might be more suitable for reliable bottle detection in diverse real-world scenarios.
 
 As deep learning models require large amounts of labeled training data and extensive computational resources for
 training, efficient image processing techniques are chosen when developing an application to find bottle fill level. By
@@ -161,7 +174,8 @@ python3 coctail-machine/template_matching_service/main.py
 
 ### Make API requests
 
-- Option 1: [Use Cloud Process Execution Engine (CPEE)](https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/)
+- Option
+  1: [Use Cloud Process Execution Engine (CPEE)](https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/)
 - Option 2: Use Postman by importing the [data](./postman-collection/postman_collection.json)
 
 ## Authors
