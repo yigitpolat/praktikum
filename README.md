@@ -4,7 +4,7 @@ This project aims to develop an additional feature for a cocktail maker robot by
 system. The objective is to enable the robot to determine whether a bottle is empty or still filled. The development of
 this feature is crucial for ensuring efficient and accurate cocktail preparation.
 
-Currently, our primary focus revolves around the implementation of Python-based image processing code specifically
+We considered a variety of methodologies, including the utilization of pre-trained AI models. There were certain advantages and disadvantages associated with this approach that influenced our decision not to employ it in this specific project. Currently, our primary focus revolves around the implementation of Python-based image processing code specifically
 designed for different bottle types. We aim to significantly improve the system's ability to identify and differentiate
 between empty and filled bottles. This approach holds promise for improving the detection accuracy by leveraging
 advanced image analysis algorithms.
@@ -129,9 +129,12 @@ Steps described below
 
 ### Pre-trained AI models
 
-- Image Classification: VGG16, ResNet50,
-  InceptionV3: https://learnopencv.com/image-classification-pretrained-imagenet-models-tensorflow-keras/
-- Object Detection: Faster R-CNN, YOLO, SSD. https://foundationsofdl.com/2019/06/02/visual-recognition/
+- Generalization: Pre-trained models, having been trained on extensive datasets, often have a superior ability to generalize from diverse data, making them adaptable to various scenarios and environments. This adaptability can be a significant advantage when dealing with the diverse range of bottle shapes and environmental conditions our system might encounter.
+- Lack of Specific Models: One of the primary limitations of pre-trained models is the unavailability of models specifically trained for the task of detecting empty or filled bottles. Most pre-trained models are designed for generic object detection or classification and may not suit the unique characteristics of our application.
+- Fine-Tuning Complexity: Fine-tuning a pre-trained model for a specific task, such as empty bottle detection, can be a complex and resource-intensive process. It often requires a substantial amount of labeled data for the new task and extensive computational resources for training. Given that our project necessitates the identification of bottle fill levels, the costs and complexities associated with fine-tuning a model for this specific purpose were prohibitive.
+
+We considered  pre-trained models for image classification such as VGG16, ResNet50, and InceptionV3 for their performance in generic object classification. However, these models, while excellent for general image recognition, do not meet the specific requirements of our bottle detection task. For object detection, we also explored models like Faster R-CNN, YOLO, and SSD. These models are particularly well-suited for identifying and localizing objects within an image. Nevertheless, our project's focus on detecting empty or filled bottles necessitates a custom approach due to the unique nature of our task.
+As there are no readily available pre-trained models tailored to the specific task of detecting empty or filled bottles, and fine-tuning these models can be resource-intensive, we opted for a different approach. Instead, we chose to focus on efficient image processing techniques. These techniques, including thresholding, edge detection, and contour analysis, allow us to extract essential features like the bottle's outline and water level without the need for extensive computational resources. This approach aligns with the efficiency requirements of the cocktail machine and the complexities of our diverse real-world operating conditions.
 
 ### HSV Color Space
 
