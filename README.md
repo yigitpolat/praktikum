@@ -178,7 +178,7 @@ cd praktikum
 python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install -r requirements.txt
-python3 coctail-machine/template_matching_service/main.py
+python3 cocktail-machine/template_matching_service/main.py
 ```
 
 ### Make API requests
