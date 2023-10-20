@@ -138,7 +138,13 @@ As there are no readily available pre-trained models tailored to the specific ta
 
 ### HSV Color Space
 
-- https://www.freedomvc.com/index.php/2022/01/17/basic-background-remover-with-opencv/
+The HSV (Hue, Saturation, Value) color space was explored as a potential method for bottle detection within the cocktail machine's environment. However, it was not chosen due to limitations.
+
+The HSV color space wasn't selected because bottles exhibit a wide range of colors, making color-based filtering alone insufficient for distinguishing empty and filled bottles, especially when color variations are significant. Additionally, this method is most effective when detecting objects with consistent color ranges, which may not apply to our task.
+
+Real-world scenarios, like the dynamic environment of the cocktail maker robot, can introduce unpredictable factors affecting color perception. This can lead to inconsistent and less reliable results.
+
+Consequently, we chose an alternative approach involving image processing methods such as thresholding, edge detection, and contour analysis. These methods provide a more versatile and robust means of detecting empty and filled bottles, regardless of color or environmental conditions, better meeting the project's specific requirements.
 
 ### Methodology - Template Matching
 
