@@ -1,20 +1,19 @@
 # Empty Bottle Detection System
 
-This project aims to develop an additional feature for a cocktail maker robot by implementing an empty bottle detection
+This project aims to develop an additional feature for a cocktail maker machine by implementing an empty bottle
+detection
 system. The objective is to enable the robot to determine whether a bottle is empty or still filled. The development of
-this feature is crucial for ensuring efficient and accurate cocktail preparation.
-
-Currently, our primary focus revolves around the implementation of Python-based image processing code specifically
-designed for different bottle types. We aim to significantly improve the system's ability to identify and differentiate
-between empty and filled bottles. This approach holds promise for improving the detection accuracy by leveraging
-advanced image analysis algorithms.
+this feature is crucial for ensuring efficient and accurate cocktail preparation. Currently, our primary focus is to
+implement Python-based image processing code specifically
+designed for different bottle types. We aim to improve the system's ability to identify and differentiate
+between empty and filled bottles.
 
 ## Assumptions and Limitations
 
 To achieve this goal, various techniques were explored to capture readable photos of the bottle system for detection
 purposes. The initial approach involved utilizing the robot's built-in camera, but it proved ineffective due to
 positioning limitations and resulting in unclear images. Subsequently, an alternative method utilizing LED lights and
-strips to enhance visibility was attempted, but it did not yield satisfactory results.
+strips to enhance visibility of the liquid level was attempted, but it did not yield satisfactory results.
 
 ### The Robot’s Built-in Camera
 
@@ -27,9 +26,9 @@ limitations, which led us to explore alternative approaches.
   numerous obstacles and potential sources of interference between the camera and the bottles. These obstacles
   obstructed the camera's line of sight, further compromising the quality of the captured images and impeding the
   detection process.
-  Example:
 - Image Resolution: Another limitation was the inadequate resolution of the images captured by the robot's camera. The
-  low resolution resulted in a lack of detail, making it difficult to discern the contents of the bottles accurately.
+  low resolution resulted in a lack of detail, making it difficult to differentiate the contents of the bottles
+  accurately.
   This constraint significantly hindered the effectiveness of the bottle detection system.
 
 Examples:
@@ -47,8 +46,8 @@ However, the trials conducted with different lighting configurations yielded uns
 approaches were attempted, each with its own limitations:
 
 - Single LED Lights on Top of Each Bottle: Initially, single LED lights were placed on top of each bottle in an attempt
-  to improve visibility and facilitate differentiation between empty and filled sections. Surprisingly, this approach
-  resulted in a deterioration of image quality. The use of individual LED lights added unwanted shadows and uneven
+  to improve visibility and facilitate differentiation between empty and filled sections. The use of individual LED
+  lights added unwanted shadows and uneven
   illumination, making it more challenging to accurately detect the bottle contents.
   Examples:
     - [Image-5](./images/robot-camera-5.png)
@@ -70,12 +69,13 @@ bottle detection system development without additional lighting.
 
 ### Image Background
 
-Another significant limitation arose from the complexity of the image background. Even if we were to use a camera with
+Another significant limitation arose from the complexity of the image background. Even if we were to use smartphone
+camera with
 superior image quality and ensure an unobstructed view of the bottle system, the image recognition module would face
 difficulties in accurately detecting the bottles due to the irregular and cluttered background. The presence of a
 non-uniform or visually busy background can introduce unnecessary visual noise, making it harder for
 the image recognition module to distinguish the bottles from their surroundings. This limitation becomes particularly
-pronounced when relying on computer vision algorithms that rely on identifying specific patterns and features within the
+apparent when relying on computer vision algorithms that rely on identifying specific patterns and features within the
 image.
 
 Examples:
@@ -100,42 +100,53 @@ Examples:
 
 ## Bottle Extraction from Images
 
-### Testing Failures: Methodologies Discarded
+### Methodologies Discarded (Testing Failures)
 
 #### Contours
 
 Contours provide an effective way to separate objects from the background, especially when the
 background is uniform, such as a white background. However, first we needed to extract the white plane from the whole
-image. So that, we planed to apply two level contour finding to first finding contours of the white background image was
-the draw the boundaries of the background of the white surface; second outlines of objects these boundaries to precisely
-define the extent and shape of the objects, which is crucial for tasks like object detection and segmentation. By
-tracing the contours of objects, you can distinguish the shapes of
-the objects from the background, making subsequent analysis and object recognition easier.
-
-Steps described below
+image. So that, we used two-layer contour finding approach to enhance the precision of object recognition in our image
+processing system. In the first layer, our algorithm discerns the white surface from the background, enabling us to
+isolate the specific region of interest. In the second layer, we leverage this recognized white surface to
+further isolate and identify bottles within the designated area. To achieve this goal, we applied the following steps
+and code can be found [here](./coctail-machine/countours/countours.py):
 
 - The input image is converted into a black and white format, reducing it to a single channel. This simplifies the
   task of identifying object boundaries.
 - GaussianBlur is applied to the image to reduce noise and smoothen it. This step helps to make the edges more
   pronounced and continuous.
-- Thresholding operation is used to create a binary image, where pixel values below a specified threshold are set to
-  black, while those above it are set to white. This binary image serves as the basis for contour detection.
+- Thresholding operation is used to create a binary image, where pixel values below a
+  specified [threshold](./images/countours-1.png) are set to
+  black, while those above it are set to white. This [binary image](./images/countours-2.png) serves as the basis for
+  contour detection.
 - Apply the Canny edge detection algorithm to the thresholded image. This step will highlight the edges of objects
   within the binary image, making them stand out more.
+    - As previously mentioned, our initial objective was to utilize contour detection to locate the white surface.
+      Unfortunately, the presence of a whiteboard in the room, which shared a similar color with the white surface,
+      posed a significant challenge. The Canny edge detection algorithm proved [ineffective](./images/countours-3.png)
+      in distinguishing between the edges of the white surface and those of the whiteboard due to their color
+      resemblance. However, we decided to proceed with contour finding as Canny showed success in highlighting the
+      precise edges of the bottles within the same visual space.
 - The findContours function in OpenCV is then utilized to locate and extract the contours of the bottles within the
   processed image. This algorithm allows for the precise identification and extraction of bottle shapes within the
   image, facilitating subsequent analysis and object recognition tasks in computer vision applications.
 
+##### Conclusion
+
+In conclusion, our experience with contour detection methodology has demonstrated its limitations as a reliable approach
+for our specific use case. It became evident that even minor variations in the image necessitated the adjustment of
+hardcoded parameters, which unfortunately failed to consistently yield [accurate results](./images/countours-4.png).
+This realization underscores the need for a more adaptable and robust solution that can better accommodate the dynamic
+nature of our visual data, ensuring a higher degree of accuracy and reliability in object recognition.
+
+### HSV Color Space
 
 ### Pre-trained AI models
 
 - Image Classification: VGG16, ResNet50,
   InceptionV3: https://learnopencv.com/image-classification-pretrained-imagenet-models-tensorflow-keras/
 - Object Detection: Faster R-CNN, YOLO, SSD. https://foundationsofdl.com/2019/06/02/visual-recognition/
-
-### HSV Color Space
-
-- https://www.freedomvc.com/index.php/2022/01/17/basic-background-remover-with-opencv/
 
 ### Methodology - Template Matching
 
