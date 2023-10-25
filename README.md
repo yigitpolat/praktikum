@@ -138,9 +138,7 @@ hardcoded parameters, which unfortunately failed to consistently yield [accurate
 This realization underscores the need for a more adaptable and robust solution that can better accommodate the dynamic
 nature of our visual data, ensuring a higher degree of accuracy and reliability in object recognition.
 
-### HSV Color Space
-
-### Pre-trained AI models
+#### Pre-trained AI models
 
 - Generalization: Pre-trained models, having been trained on extensive datasets, often have a superior ability to generalize from diverse data, making them adaptable to various scenarios and environments. This adaptability can be a significant advantage when dealing with the diverse range of bottle shapes and environmental conditions our system might encounter.
 - Lack of Specific Models: One of the primary limitations of pre-trained models is the unavailability of models specifically trained for the task of detecting empty or filled bottles. Most pre-trained models are designed for generic object detection or classification and may not suit the unique characteristics of our application.
@@ -149,7 +147,7 @@ nature of our visual data, ensuring a higher degree of accuracy and reliability 
 We considered  pre-trained models for image classification such as VGG16, ResNet50, and InceptionV3 for their performance in generic object classification. However, these models, while excellent for general image recognition, do not meet the specific requirements of our bottle detection task. For object detection, we also explored models like Faster R-CNN, YOLO, and SSD. These models are particularly well-suited for identifying and localizing objects within an image. Nevertheless, our project's focus on detecting empty or filled bottles necessitates a custom approach due to the unique nature of our task.
 As there are no readily available pre-trained models tailored to the specific task of detecting empty or filled bottles, and fine-tuning these models can be resource-intensive, we opted for a different approach. Instead, we chose to focus on efficient image processing techniques. These techniques, including thresholding, edge detection, and contour analysis, allow us to extract essential features like the bottle's outline and water level without the need for extensive computational resources. This approach aligns with the efficiency requirements of the cocktail machine and the complexities of our diverse real-world operating conditions.
 
-### HSV Color Space
+#### HSV Color Space
 
 The HSV (Hue, Saturation, Value) color space was explored as a potential method for bottle detection within the cocktail machine's environment. However, it was not chosen due to limitations.
 
@@ -180,6 +178,22 @@ As deep learning models require large amounts of labeled training data and exten
 training, efficient image processing techniques are chosen when developing an application to find bottle fill level. By
 leveraging traditional image processing algorithms such as thresholding, edge detection, and contour analysis, it
 becomes possible to extract relevant features like the bottle's outline and water height.
+
+## CPEE - Model Integration
+
+The CPEE is accessible via the following link: [CPEE Execution Interface] (https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/). Our model is named "test.xml" and resides within the "liquid-level" folder.
+
+Our model accepts an input in the form of an image in base64 format. Specifically, it expects an overall image of the cocktail maker machine with multiple bottles present. The CPEE orchestrates the execution of the model and returns three boolean variables indicating the fullness of three distinct bottle types.
+
+The execution process within the CPEE is broken down into several key steps:
+
+- Initialization ("Base"): This initial step initializes all the variables required for the model's operation.
+
+- Service Call ("Crop Bottles"): In this step, the CPEE makes a service call to an endpoint labeled "cropbottles." This service is responsible for identifying and cropping each individual bottle from the input image, saving them as base64-encoded images within an array of three.
+
+- Service Calls ("Get 'X' Fill Level"): Following the "cropbottles" step, there are three subsequent service calls to the "filllevels" endpoint. These calls are made three times, each time with a specific bottle type. The CPEE sets the variables that represent the fullness of the bottles to the determined values for each bottle.
+ 
+The execution process, orchestrated by the Cloud Process Execution Engine, allows us to process an image of the cocktail machine and determine the fullness of three different bottle types. This integration provides information to increase the functionality of the cocktail machine.
 
 ## Run the code
 
