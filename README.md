@@ -181,7 +181,7 @@ becomes possible to extract relevant features like the bottle's outline and wate
 
 ## CPEE - Model Integration
 
-The CPEE is accessible via the following link: [CPEE Execution Interface] (https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/). Our model is named "test.xml" and resides within the "liquid-level" folder.
+The CPEE is accessible via the following link: [CPEE Execution Interface](https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/). Our model is named "test.xml" and resides within the "liquid-level" folder.
 
 Our model accepts an input in the form of an image in base64 format. Specifically, it expects an overall image of the cocktail maker machine with multiple bottles present. The CPEE orchestrates the execution of the model and returns three boolean variables indicating the fullness of three distinct bottle types.
 
