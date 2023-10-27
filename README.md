@@ -102,11 +102,9 @@ Examples:
 - [Image-18](./images/white-background-3.JPG)
 - [Image-19](./images/white-background-4.JPG)
 
-## Bottle Extraction from Images
+## Methodologies Discarded (Testing Failures)
 
-### Methodologies Discarded (Testing Failures)
-
-#### Contours
+### Contours
 
 Contours provide an effective way to separate objects from the background, especially when the
 background is uniform, such as a white background. However, first we needed to extract the white plane from the whole
@@ -136,7 +134,7 @@ and code can be found [here](./coctail-machine/countours/countours.py):
   processed image. This algorithm allows for the precise identification and extraction of bottle shapes within the
   image, facilitating subsequent analysis and object recognition tasks in computer vision applications.
 
-##### Conclusion
+#### Conclusion
 
 In conclusion, our experience with contour detection methodology has demonstrated its limitations as a reliable approach
 for our specific use case. It became evident that even minor variations in the image necessitated the adjustment of
@@ -144,7 +142,7 @@ hardcoded parameters, which unfortunately failed to consistently yield [accurate
 This realization underscores the need for a more adaptable and robust solution that can better accommodate the dynamic
 nature of our visual data, ensuring a higher degree of accuracy and reliability in object recognition.
 
-#### Pre-trained AI models
+### Pre-trained AI models
 
 - Generalization: Pre-trained models, having been trained on extensive datasets, often have a superior ability to
   generalize from diverse data, making them adaptable to various scenarios and environments. This adaptability can be a
@@ -171,40 +169,58 @@ allow us to extract essential features like the bottle's outline and water level
 computational resources. This approach aligns with the efficiency requirements of the cocktail machine and the
 complexities of our diverse real-world operating conditions.
 
-#### HSV Color Space
+### HSV Color Space
 
 The HSV (Hue, Saturation, Value) color space was explored as a potential method for bottle detection within the cocktail
 machine's environment. The HSV color space wasn't selected because bottles exhibit a wide range of colors, making
 color-based filtering alone insufficient for distinguishing empty and filled bottles, especially when [color variations
-are significant](./images/hsv.png). Additionally, this method is most effective when detecting objects with consistent color ranges, which
-may not apply to our task. Real-world scenarios, like the dynamic environment of the cocktail maker robot, can introduce
-unpredictable factors affecting color perception. This can lead to inconsistent and less reliable results.
+are significant](./images/hsv.png). Additionally, this method is most effective when detecting objects with consistent
+color ranges, which may not apply to our task. Real-world scenarios, like the dynamic environment of the cocktail maker
+robot, can introduce unpredictable factors affecting color perception. This can lead to inconsistent and less reliable
+results.
 
 Consequently, we chose an alternative approach involving image processing methods such as template matching. This
 methods provide a more versatile and robust means of detecting empty and filled bottles, regardless of color or
 environmental conditions, better meeting the project's specific requirements.
 
-### Methodology - Template Matching
+## Methodology
+
+### Template Matching - Bottle Extraction
 
 OpenCV template matching is primarily relies on pixel-level comparisons without considering higher-level features. As a
-result of our experimentation, template matching mode TM_CCOEFF_NORMED gave the highest performance within 6 modes;
-TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, M_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED.
+result of our experimentation, template matching
+mode [TM_CCOEFF_NORMED](./cocktail-machine/template_matching/find_best_template_matching_mode.py) gave the highest
+performance within 6 modes; TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, M_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED.
 
-we saw that template matching was working incorrectly due to the following items.
+- [Result-1](./images/result-1.png)
 
-- Bottle Shapes: The large variation in bottle shapes, sizes, and orientations can make it challenging to find a single
-  template that accurately represents all instances of bottles. Eventhough if we try to get a template for each bottle,
-  which is not feasible for the efficiency of the cocktail machine, it does not seem reasonable to solve the problems in
-  the next item.
-- Environmental Factors: Template matching relies on finding exact matches, and even slight variations in the appearance
-  of bottles, such as different lights or reflection can lead to inaccurate results.
-  Therefore, alternative approaches such as deep learning-based object detection algorithms, which can learn and
-  generalize from large datasets, might be more suitable for reliable bottle detection in diverse real-world scenarios.
+### Image Processing - Bottle Fill Level
 
-As deep learning models require large amounts of labeled training data and extensive computational resources for
-training, efficient image processing techniques are chosen when developing an application to find bottle fill level. By
-leveraging traditional image processing algorithms such as thresholding, edge detection, and contour analysis, it
-becomes possible to extract relevant features like the bottle's outline and water height.
+The selection of OpenCV image processing methodologies was a strategic decision aimed at precisely and
+efficiently assessing the liquid levels contained within the bottles. Leveraging OpenCV's versatile and well-established
+toolkit for image processing, the approach incorporated a series of essential steps as describe below:
+- The images used are from a monochrome camera but saved as three-channel image files. However, only one channel is used
+  for processing as all three are identical.
+- The images show poor contrast and reflective patches along the bottle's edge.
+- A  Gaussian kernel is applied to smooth the image, reducing noise while preserving its structure.
+- An image histogram is plotted to identify an appropriate threshold for separating the liquid from the rest of the
+  image.
+- Poor contrast in the histogram is noted.
+- A global threshold is manually chosen from the histogram, and an inverted binary image is created using threshold
+  function.
+- The resulting binary image captures the liquid but also includes parts of the bottle's top and less illuminated glass
+  areas.
+- The next step involves using OpenCV's findContours() function to identify foreground shapes.
+- To identify the main contour representing the liquid, contours are sorted by area, and the largest one is selected and
+  outlined over the original image.
+- After selecting the correct contour, a bounding box is drawn around it, and its aspect ratio (width-to-height ratio)
+  is calculated.
+- The aspect ratio value can be used to determine the fill level of the bottle, and a threshold can be set to identify
+  low liquid levels.
+
+- [Result-2](./images/result-2.png)
+- [Result-3](./images/result-3.png)
+- [Result-4](./images/result-4.png)
 
 ## CPEE - Model Integration
 

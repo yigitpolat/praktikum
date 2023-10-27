@@ -8,7 +8,7 @@ def is_bottle_full(image):
     bottle_gray = cv2.split(bottle_image)[0]
 
     #
-    # plt.hist(bottle_gray.ravel(), 256,[0, 256]); plt.show()
+    plt.hist(bottle_gray.ravel(), 256,[0, 256]); plt.show()
 
     # manual threshold derived from above function
     (T, bottle_threshold) = cv2.threshold(bottle_gray, 96, 255, cv2.THRESH_BINARY_INV)
