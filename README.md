@@ -162,6 +162,9 @@ specific requirements of our bottle detection task. For object detection, we als
 YOLO, and SSD. These models are particularly well-suited for identifying and localizing objects within an image.
 Nevertheless, our project's focus on detecting empty or filled bottles necessitates a custom approach due to the unique
 nature of our task.
+
+#### Conclusion
+
 As there are no readily available pre-trained models tailored to the specific task of detecting empty or filled bottles,
 and fine-tuning these models can be resource-intensive, we opted for a different approach. Instead, we chose to focus on
 efficient image processing techniques. These techniques, including thresholding, edge detection, and contour analysis,
@@ -179,7 +182,9 @@ color ranges, which may not apply to our task. Real-world scenarios, like the dy
 robot, can introduce unpredictable factors affecting color perception. This can lead to inconsistent and less reliable
 results.
 
-Consequently, we chose an alternative approach involving image processing methods such as template matching. This
+#### Conclusion
+
+We chose an alternative approach involving image processing methods such as template matching. This
 methods provide a more versatile and robust means of detecting empty and filled bottles, regardless of color or
 environmental conditions, better meeting the project's specific requirements.
 
