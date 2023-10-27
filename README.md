@@ -197,6 +197,8 @@ result of our experimentation, template matching
 mode [TM_CCOEFF_NORMED](./cocktail-machine/template_matching/find_best_template_matching_mode.py) gave the highest
 performance within 6 modes; TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, M_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED.
 
+Examples:
+
 - [Result-1](./images/result-1.png)
 
 ### Image Processing - Bottle Fill Level
@@ -204,10 +206,11 @@ performance within 6 modes; TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, M_CCORR_NORME
 The selection of OpenCV image processing methodologies was a strategic decision aimed at precisely and
 efficiently assessing the liquid levels contained within the bottles. Leveraging OpenCV's versatile and well-established
 toolkit for image processing, the approach incorporated a series of essential steps as describe below:
+
 - The images used are from a monochrome camera but saved as three-channel image files. However, only one channel is used
   for processing as all three are identical.
 - The images show poor contrast and reflective patches along the bottle's edge.
-- A  Gaussian kernel is applied to smooth the image, reducing noise while preserving its structure.
+- A Gaussian kernel is applied to smooth the image, reducing noise while preserving its structure.
 - An image histogram is plotted to identify an appropriate threshold for separating the liquid from the rest of the
   image.
 - Poor contrast in the histogram is noted.
@@ -223,9 +226,21 @@ toolkit for image processing, the approach incorporated a series of essential st
 - The aspect ratio value can be used to determine the fill level of the bottle, and a threshold can be set to identify
   low liquid levels.
 
+Examples:
+
 - [Result-2](./images/result-2.png)
 - [Result-3](./images/result-3.png)
 - [Result-4](./images/result-4.png)
+
+#### Conclusion
+
+While the previously mentioned approach is effective and yields accurate results in environments with stable conditions,
+it's important to acknowledge that it may necessitate fine-tuning when introduced to settings where variables are
+subject to change. Even minor alterations in the environment, such as variations in lighting or liquid
+properties, can significantly impact the behavior of the detection system. In such dynamic environments, adaptability
+becomes crucial. Thus, ongoing monitoring and adjustments to the algorithm's parameters may be required to maintain
+reliable liquid level detection and ensure that the system can effectively respond to the evolving conditions,
+reflecting the inherent sensitivity of computer vision applications to environmental changes.
 
 ## CPEE - Model Integration
 
