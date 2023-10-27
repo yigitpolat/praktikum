@@ -1,10 +1,16 @@
 # Empty Bottle Detection System
 
 This project aims to develop an additional feature for a cocktail maker machine by implementing an empty bottle
-detection system. The objective is to enable the robot to determine whether a bottle is empty or still filled. The development of
-this feature is crucial for ensuring efficient and accurate cocktail preparation. 
+detection system. The objective is to enable the robot to determine whether a bottle is empty or still filled. The
+development of
+this feature is crucial for ensuring efficient and accurate cocktail preparation.
 
-We considered a variety of methodologies, including the utilization of pre-trained AI models. There were certain advantages and disadvantages associated with this approach that influenced our decision not to employ it in this specific project. Currently, our primary focus revolves around the implementation of Python-based image processing code specifically designed for different bottle types. We aim to significantly improve the system's ability to identify and differentiate between empty and filled bottles. This approach holds promise for improving the detection accuracy by leveraging advanced image analysis algorithms.
+We considered a variety of methodologies, including the utilization of pre-trained AI models. There were certain
+advantages and disadvantages associated with this approach that influenced our decision not to employ it in this
+specific project. Currently, our primary focus revolves around the implementation of Python-based image processing code
+specifically designed for different bottle types. We aim to significantly improve the system's ability to identify and
+differentiate between empty and filled bottles. This approach holds promise for improving the detection accuracy by
+leveraging advanced image analysis algorithms.
 
 ## Assumptions and Limitations
 
@@ -140,22 +146,43 @@ nature of our visual data, ensuring a higher degree of accuracy and reliability 
 
 #### Pre-trained AI models
 
-- Generalization: Pre-trained models, having been trained on extensive datasets, often have a superior ability to generalize from diverse data, making them adaptable to various scenarios and environments. This adaptability can be a significant advantage when dealing with the diverse range of bottle shapes and environmental conditions our system might encounter.
-- Lack of Specific Models: One of the primary limitations of pre-trained models is the unavailability of models specifically trained for the task of detecting empty or filled bottles. Most pre-trained models are designed for generic object detection or classification and may not suit the unique characteristics of our application.
-- Fine-Tuning Complexity: Fine-tuning a pre-trained model for a specific task, such as empty bottle detection, can be a complex and resource-intensive process. It often requires a substantial amount of labeled data for the new task and extensive computational resources for training. Given that our project necessitates the identification of bottle fill levels, the costs and complexities associated with fine-tuning a model for this specific purpose were prohibitive.
+- Generalization: Pre-trained models, having been trained on extensive datasets, often have a superior ability to
+  generalize from diverse data, making them adaptable to various scenarios and environments. This adaptability can be a
+  significant advantage when dealing with the diverse range of bottle shapes and environmental conditions our system
+  might encounter.
+- Lack of Specific Models: One of the primary limitations of pre-trained models is the unavailability of models
+  specifically trained for the task of detecting empty or filled bottles. Most pre-trained models are designed for
+  generic object detection or classification and may not suit the unique characteristics of our application.
+- Fine-Tuning Complexity: Fine-tuning a pre-trained model for a specific task, such as empty bottle detection, can be a
+  complex and resource-intensive process. It often requires a substantial amount of labeled data for the new task and
+  extensive computational resources for training. Given that our project necessitates the identification of bottle fill
+  levels, the costs and complexities associated with fine-tuning a model for this specific purpose were prohibitive.
 
-We considered  pre-trained models for image classification such as VGG16, ResNet50, and InceptionV3 for their performance in generic object classification. However, these models, while excellent for general image recognition, do not meet the specific requirements of our bottle detection task. For object detection, we also explored models like Faster R-CNN, YOLO, and SSD. These models are particularly well-suited for identifying and localizing objects within an image. Nevertheless, our project's focus on detecting empty or filled bottles necessitates a custom approach due to the unique nature of our task.
-As there are no readily available pre-trained models tailored to the specific task of detecting empty or filled bottles, and fine-tuning these models can be resource-intensive, we opted for a different approach. Instead, we chose to focus on efficient image processing techniques. These techniques, including thresholding, edge detection, and contour analysis, allow us to extract essential features like the bottle's outline and water level without the need for extensive computational resources. This approach aligns with the efficiency requirements of the cocktail machine and the complexities of our diverse real-world operating conditions.
+We considered pre-trained models for image classification such as VGG16, ResNet50, and InceptionV3 for their performance
+in generic object classification. However, these models, while excellent for general image recognition, do not meet the
+specific requirements of our bottle detection task. For object detection, we also explored models like Faster R-CNN,
+YOLO, and SSD. These models are particularly well-suited for identifying and localizing objects within an image.
+Nevertheless, our project's focus on detecting empty or filled bottles necessitates a custom approach due to the unique
+nature of our task.
+As there are no readily available pre-trained models tailored to the specific task of detecting empty or filled bottles,
+and fine-tuning these models can be resource-intensive, we opted for a different approach. Instead, we chose to focus on
+efficient image processing techniques. These techniques, including thresholding, edge detection, and contour analysis,
+allow us to extract essential features like the bottle's outline and water level without the need for extensive
+computational resources. This approach aligns with the efficiency requirements of the cocktail machine and the
+complexities of our diverse real-world operating conditions.
 
 #### HSV Color Space
 
-The HSV (Hue, Saturation, Value) color space was explored as a potential method for bottle detection within the cocktail machine's environment. However, it was not chosen due to limitations.
+The HSV (Hue, Saturation, Value) color space was explored as a potential method for bottle detection within the cocktail
+machine's environment. The HSV color space wasn't selected because bottles exhibit a wide range of colors, making
+color-based filtering alone insufficient for distinguishing empty and filled bottles, especially when [color variations
+are significant](./images/hsv.png). Additionally, this method is most effective when detecting objects with consistent color ranges, which
+may not apply to our task. Real-world scenarios, like the dynamic environment of the cocktail maker robot, can introduce
+unpredictable factors affecting color perception. This can lead to inconsistent and less reliable results.
 
-The HSV color space wasn't selected because bottles exhibit a wide range of colors, making color-based filtering alone insufficient for distinguishing empty and filled bottles, especially when color variations are significant. Additionally, this method is most effective when detecting objects with consistent color ranges, which may not apply to our task.
-
-Real-world scenarios, like the dynamic environment of the cocktail maker robot, can introduce unpredictable factors affecting color perception. This can lead to inconsistent and less reliable results.
-
-Consequently, we chose an alternative approach involving image processing methods such as thresholding, edge detection, and contour analysis. These methods provide a more versatile and robust means of detecting empty and filled bottles, regardless of color or environmental conditions, better meeting the project's specific requirements.
+Consequently, we chose an alternative approach involving image processing methods such as template matching. This
+methods provide a more versatile and robust means of detecting empty and filled bottles, regardless of color or
+environmental conditions, better meeting the project's specific requirements.
 
 ### Methodology - Template Matching
 
@@ -181,19 +208,29 @@ becomes possible to extract relevant features like the bottle's outline and wate
 
 ## CPEE - Model Integration
 
-The CPEE is accessible via the following link: [CPEE Execution Interface](https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/). Our model is named "test.xml" and resides within the "liquid-level" folder.
+The CPEE is accessible via the following
+link: [CPEE Execution Interface](https://cpee.org/flow/edit.html?monitor=https://cpee.org/flow/engine/22616/). Our model
+is named "test.xml" and resides within the "liquid-level" folder.
 
-Our model accepts an input in the form of an image in base64 format. Specifically, it expects an overall image of the cocktail maker machine with multiple bottles present. The CPEE orchestrates the execution of the model and returns three boolean variables indicating the fullness of three distinct bottle types.
+Our model accepts an input in the form of an image in base64 format. Specifically, it expects an overall image of the
+cocktail maker machine with multiple bottles present. The CPEE orchestrates the execution of the model and returns three
+boolean variables indicating the fullness of three distinct bottle types.
 
 The execution process within the CPEE is broken down into several key steps:
 
 - Initialization ("Base"): This initial step initializes all the variables required for the model's operation.
 
-- Service Call ("Crop Bottles"): In this step, the CPEE makes a service call to an endpoint labeled "cropbottles." This service is responsible for identifying and cropping each individual bottle from the input image, saving them as base64-encoded images within an array of three.
+- Service Call ("Crop Bottles"): In this step, the CPEE makes a service call to an endpoint labeled "cropbottles." This
+  service is responsible for identifying and cropping each individual bottle from the input image, saving them as
+  base64-encoded images within an array of three.
 
-- Service Calls ("Get 'X' Fill Level"): Following the "cropbottles" step, there are three subsequent service calls to the "filllevels" endpoint. These calls are made three times, each time with a specific bottle type. The CPEE sets the variables that represent the fullness of the bottles to the determined values for each bottle.
- 
-The execution process, orchestrated by the Cloud Process Execution Engine, allows us to process an image of the cocktail machine and determine the fullness of three different bottle types. This integration provides information to increase the functionality of the cocktail machine.
+- Service Calls ("Get 'X' Fill Level"): Following the "cropbottles" step, there are three subsequent service calls to
+  the "filllevels" endpoint. These calls are made three times, each time with a specific bottle type. The CPEE sets the
+  variables that represent the fullness of the bottles to the determined values for each bottle.
+
+The execution process, orchestrated by the Cloud Process Execution Engine, allows us to process an image of the cocktail
+machine and determine the fullness of three different bottle types. This integration provides information to increase
+the functionality of the cocktail machine.
 
 ## Run the code
 
